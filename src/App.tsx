@@ -10,16 +10,19 @@ import ProtectedLayout from './Protected/ProtectedLayout'
 
 
 const router = createBrowserRouter(createRoutesFromElements(
+  <>
+
   
   <Route path='/' element={<RootLayout />}>
       <Route index element={<Home />} />
+    </Route>
       <Route element={<ProtectedLayout />}>
         <Route element={<AuthLayout />}>
           <Route  path='/sign-in' element={<SignIn/>}/>
           <Route path='/sign-up' element={<SignUp/>}/>
         </Route>
       </Route>
-    </Route>
+    </>
 
 
 
