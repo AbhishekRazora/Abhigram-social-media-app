@@ -7,6 +7,7 @@ import RootLayout from './_root/RootLayout'
 import Home from './_root/pages/Home'
 import ProtectedLayout from './Protected/ProtectedLayout'
 // import ProtectedLayout from "./Protected/ProtectedLayout"
+import { Toaster } from "@/components/ui/toaster"
 
 
 const router = createBrowserRouter(createRoutesFromElements(
@@ -22,6 +23,7 @@ const router = createBrowserRouter(createRoutesFromElements(
           <Route path='/sign-up' element={<SignUp/>}/>
         </Route>
       </Route>
+      <Toaster/>
     </>
 
 
