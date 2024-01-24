@@ -23,7 +23,7 @@ const router = createBrowserRouter(createRoutesFromElements(
           <Route path='/sign-up' element={<SignUp/>}/>
         </Route>
       </Route>
-      <Toaster/>
+      
     </>
 
 
@@ -34,7 +34,11 @@ function App() {
 
 
   return (
+    <>
+   
     <RouterProvider router={router} />
+    <Toaster/>
+    </>
   )
 }
 
