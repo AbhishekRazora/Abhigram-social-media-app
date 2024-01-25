@@ -1,4 +1,4 @@
-import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider, Routes } from 'react-router-dom'
 import './App.css'
 import SignIn from './_auth/Forms/SignIn'
 import AuthLayout from './_auth/AuthLayout'
@@ -8,38 +8,60 @@ import Home from './_root/pages/Home'
 import ProtectedLayout from './Protected/ProtectedLayout'
 // import ProtectedLayout from "./Protected/ProtectedLayout"
 import { Toaster } from "@/components/ui/toaster"
+import QueryProvider from './lib/react-query/QueryProvider'
+import AuthProvider from './context/AuthContext'
 
 
-const router = createBrowserRouter(createRoutesFromElements(
-  <>
-
-  
-  <Route path='/' element={<RootLayout />}>
-      <Route index element={<Home />} />
-    </Route>
-      <Route element={<ProtectedLayout />}>
-        <Route element={<AuthLayout />}>
-          <Route  path='/sign-in' element={<SignIn/>}/>
-          <Route path='/sign-up' element={<SignUp/>}/>
-        </Route>
-      </Route>
-      
-    </>
+// const router = createBrowserRouter(createRoutesFromElements(
+//   <>
 
 
+//   <Route path='/' element={<RootLayout />}>
+//       <Route index element={<Home />} />
+//     </Route>
+//       <Route element={<ProtectedLayout />}>
+//         <Route element={<AuthLayout />}>
+//           <Route  path='/sign-in' element={<SignIn/>}/>
+//           <Route path='/sign-up' element={<SignUp/>}/>
+//         </Route>
+//       </Route>
+
+//     </>
 
 
-))
+
+
+// ))
 function App() {
 
 
   return (
-    <>
    
-    <RouterProvider router={router} />
-    <Toaster/>
-    </>
+    <main>
+      <Routes>
+      <Route path='/' element={<RootLayout />}>
+//       <Route index element={<Home />} />
+//     </Route>
+//       <Route element={<ProtectedLayout />}>
+//         <Route element={<AuthLayout />}>
+//           <Route  path='/sign-in' element={<SignIn/>}/>
+//           <Route path='/sign-up' element={<SignUp/>}/>
+//         </Route>
+//       </Route>
+      </Routes>
+
+<Toaster/>
+    </main>
   )
 }
 
 export default App
+// <>
+//  {/* <QueryProvider> */ }
+// {/* <AuthProvider> */ }
+
+// {/* <RouterProvider router={router} /> */ }
+// {/* <Toaster/> */ }
+// {/* </AuthProvider> */ }
+// {/* </QueryProvider> */ }
+// </>

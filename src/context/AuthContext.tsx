@@ -1,6 +1,9 @@
+import { getCurrentUser } from '@/lib/appwrite/api';
 import { IContextType, IUser } from '@/types';
 import {createContext,useContext,useEffect,useState} from 'react'
+import { Navigate, redirect, useNavigate } from 'react-router-dom';
 // import {IContextType} from '../types/index'
+
 export const INITIAL_USER={
     id:'',
     name:"",
@@ -23,14 +26,31 @@ const INITIAL_STATE={
 const AuthContext=createContext<IContextType>(INITIAL_STATE);
 
 const AuthProvider = ({children}:{children:React.ReactNode}) => {
+    const navigate=useNavigate();
 
     const [user,setUser]=useState<IUser>(INITIAL_USER)
     const [isLoading,setIsLoading]=useState(false);
     const [isAuthenticated,setIsAuthenticated]=useState(false);
 
+
     const checkAuthUser=async()=>{
 try {
     const currentAccount=await getCurrentUser()
+
+    if(currentAccount){
+        setUser({
+            id:currentAccount.$id,
+            name:currentAccount.name,
+            username:currentAccount.username,
+            email:currentAccount.email,
+            imageUrl:currentAccount.imageUrl,
+            bio:currentAccount.bio,
+        })
+
+        setIsAuthenticated(true);
+        return true;
+    }
+    return false;
 } catch (error) {
     console.log(error)
     return false;
@@ -40,6 +60,22 @@ try {
 }
     }
 
+
+useEffect(()=>{
+    if(
+        localStorage.getItem('cookieFallback')==='[]'||
+        localStorage.getItem('cookieFallback')===null||
+        localStorage.getItem('cookieFallback')===undefined
+
+    ){
+        navigate('/sign-in')
+        console.log('hello')
+        //  redirect('/sign-in')
+        // return <Navigate to='/sign-in'/>
+        
+    }
+    checkAuthUser()
+},[])
 
 const value={
     user,
@@ -58,4 +94,8 @@ const value={
   )
 }
 
-export default AuthContext
+export default AuthProvider
+
+export const useUserContext=()=>useContext(AuthContext);
+
+

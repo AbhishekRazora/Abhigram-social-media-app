@@ -16,11 +16,12 @@ import React from 'react'
 
 import { SignupValidationSchema } from "@/lib/validation"
 import Loader from "@/components/shared/Loader"
-import { Link } from "react-router-dom"
+import { Link,useNavigate } from "react-router-dom"
 // import { createUserAccount } from "@/lib/appwrite/api"
 
 import { useToast } from "@/components/ui/use-toast"
 import { useCreateUserAccountMutation, useSignInAccount } from "@/lib/react-query/queriesAndMutations"
+import { useUserContext } from "@/context/AuthContext"
 
 
 // const formSchema = z.object({
@@ -32,10 +33,12 @@ const SignUp = () => {
   const {toast}=useToast()
 // const isLoading=false;
 
+const {checkAuthUser,isLoading:isUserLoading}=useUserContext()
 
-const {mutateAsync:createUserAccount,isLoading:isCreatingUser}=useCreateUserAccountMutation()
+const navigate=useNavigate()
+const {mutateAsync:createUserAccount,isPending:isCreatingUser}=useCreateUserAccountMutation()
 
-const {mutateAsync:signInAccount,isLoading:isSigningIn}=useSignInAccount()
+const {mutateAsync:signInAccount,isPending:isSigningIn}=useSignInAccount()
 
   const form = useForm<z.infer<typeof SignupValidationSchema>>({
     resolver: zodResolver(SignupValidationSchema),
@@ -68,6 +71,16 @@ const {mutateAsync:signInAccount,isLoading:isSigningIn}=useSignInAccount()
 
     if(!session){
       return toast({title:"Sign in failes.Please try again."})
+    }
+
+    const isLoggedIn=await checkAuthUser();
+
+    if(isLoggedIn){
+      form.reset()
+
+      navigate('/')
+    }else{
+      return toast({title:'Sign up failed.Please try again.'})
     }
   }
 
