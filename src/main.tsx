@@ -9,13 +9,13 @@ import { BrowserRouter } from 'react-router-dom'
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <BrowserRouter>
-   
-      <QueryProvider>
-    <AuthProvider>
 
-        <App />
-    </AuthProvider>
+      <QueryProvider>
+        <AuthProvider>
+
+          <App />
+        </AuthProvider>
       </QueryProvider>
-      </BrowserRouter>
+    </BrowserRouter>
   </React.StrictMode>,
 )
