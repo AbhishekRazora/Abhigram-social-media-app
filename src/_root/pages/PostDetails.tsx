@@ -1,13 +1,14 @@
 import Loader from '@/components/shared/Loader'
 import PostStats from '@/components/shared/PostStats'
 import { Button } from '@/components/ui/button'
-import React from 'react'
+// import React from 'react'
 import { useParams,Link,useNavigate } from 'react-router-dom'
 
 
-import { useGetPostById,useDeletePost } from '@/lib/react-query/queriesAndMutations'
+import { useGetPostById,useDeletePost, useGetUserPosts } from '@/lib/react-query/queriesAndMutations'
 import { multiFormatDateString } from '@/lib/utils'
 import { useUserContext } from '@/context/AuthContext'
+import GridPostList from '@/components/shared/GridPostList'
 
 
 const PostDetails = () => {
@@ -16,14 +17,14 @@ const PostDetails = () => {
   const { user } = useUserContext();
 
   const { data: post, isPending } = useGetPostById(id || "");
-  // const { data: userPosts, isLoading: isUserPostLoading } = useGetUserPosts(
-  //   post?.creator.$id
-  // );
+  const { data: userPosts, isLoading: isUserPostLoading } = useGetUserPosts(
+    post?.creator.$id
+  );
   const { mutate: deletePost } = useDeletePost();
 
-  // const relatedPosts = userPosts?.documents.filter(
-  //   (userPost) => userPost.$id !== id
-  // );
+  const relatedPosts = userPosts?.documents.filter(
+    (userPost) => userPost.$id !== id
+  );
 
   const handleDeletePost = () => {
     deletePost({ postId: id, imageId: post?.imageId });
@@ -141,12 +142,14 @@ const PostDetails = () => {
       <h3 className="body-bold md:h3-bold w-full my-10">
         More Related Posts
       </h3>
-      {/* {isUserPostLoading || !relatedPosts ? (
+      {isUserPostLoading || !relatedPosts ? (
         <Loader />
       ) : (
-        // <GridPostList posts={relatedPosts} />
-        <div>hello</div>
-      )} */}
+        <div className='flex flex-col'>
+        <GridPostList posts={relatedPosts} />
+        </div>
+        
+      )}
     </div>
   </div>
   )
