@@ -1,10 +1,10 @@
 import { useGetUsers } from '@/lib/react-query/queriesAndMutations'
-import React from 'react'
+
 import UserCard from './UserCard'
 import Loader from './Loader'
 
 const RightSidebar = () => {
-    const{data:creators,isPending,isError:isErrorCreators}=useGetUsers(10)
+    const{data:creators,isPending}=useGetUsers(10)
   return (
     <div className='home-creators'>
       <h2 className='h3-bold text-left w-full'>Top Creators</h2>
