@@ -1,4 +1,4 @@
-import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider, Routes } from 'react-router-dom'
+import {  Route,  Routes } from 'react-router-dom'
 import './App.css'
 import SignIn from './_auth/Forms/SignIn'
 import AuthLayout from './_auth/AuthLayout'
@@ -8,8 +8,7 @@ import Home from './_root/pages/Home'
 import ProtectedLayout from './Protected/ProtectedLayout'
 // import ProtectedLayout from "./Protected/ProtectedLayout"
 import { Toaster } from "@/components/ui/toaster"
-import QueryProvider from './lib/react-query/QueryProvider'
-import AuthProvider from './context/AuthContext'
+
 import Explore from './_root/pages/Explore'
 import Saved from './_root/pages/Saved'
 import AllUsers from './_root/pages/AllUsers'
@@ -20,26 +19,10 @@ import Profile from './_root/pages/Profile'
 import UpdateProfile from './_root/pages/UpdateProfile'
 
 
-// const router = createBrowserRouter(createRoutesFromElements(
-//   <>
-
-
-//   <Route path='/' element={<RootLayout />}>
-//       <Route index element={<Home />} />
-//     </Route>
-//       <Route element={<ProtectedLayout />}>
-//         <Route element={<AuthLayout />}>
-//           <Route  path='/sign-in' element={<SignIn/>}/>
-//           <Route path='/sign-up' element={<SignUp/>}/>
-//         </Route>
-//       </Route>
-
-//     </>
 
 
 
 
-// ))
 function App() {
 
 
@@ -74,12 +57,4 @@ function App() {
 }
 
 export default App
-// <>
-//  {/* <QueryProvider> */ }
-// {/* <AuthProvider> */ }
 
-// {/* <RouterProvider router={router} /> */ }
-// {/* <Toaster/> */ }
-// {/* </AuthProvider> */ }
-// {/* </QueryProvider> */ }
-// </>

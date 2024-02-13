@@ -5,14 +5,14 @@ import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
-  FormDescription,
+ 
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import React from 'react'
+
 
 import { SignupValidationSchema } from "@/lib/validation"
 import Loader from "@/components/shared/Loader"
@@ -33,12 +33,12 @@ const SignUp = () => {
   const {toast}=useToast()
 // const isLoading=false;
 
-const {checkAuthUser,isLoading:isUserLoading}=useUserContext()
+const {checkAuthUser}=useUserContext()
 
 const navigate=useNavigate()
 const {mutateAsync:createUserAccount,isPending:isCreatingUser}=useCreateUserAccountMutation()
 
-const {mutateAsync:signInAccount,isPending:isSigningIn}=useSignInAccount()
+const {mutateAsync:signInAccount}=useSignInAccount()
 
   const form = useForm<z.infer<typeof SignupValidationSchema>>({
     resolver: zodResolver(SignupValidationSchema),
